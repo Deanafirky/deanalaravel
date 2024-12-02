@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\CoffeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +15,8 @@ use App\Http\Controllers\UserController;
 |
 */
  
-Route::get('/', function () {
-    return view('auth/login');
-});
+Route::get('/', [CoffeeController::class, 'index'])->name('us.index');
+Route::post('/simpan-buku-tamu', [CoffeeController::class, 'simpan'])->name('us.simpan');
  
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');
@@ -32,10 +29,10 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
- 
+    // Route::get('dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+    Route::get('dashboard', [ProductController::class, 'dashboard'])->name('dashboard');
     Route::controller(ProductController::class)->prefix('products')->group(function () {
         Route::get('', 'index')->name('products');
         Route::get('create', 'create')->name('products.create');
@@ -44,19 +41,20 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('products.edit');
         Route::put('edit/{id}', 'update')->name('products.update');
         Route::delete('destroy/{id}', 'destroy')->name('products.destroy');
+        
     });
  
     Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');
 });
 //Normal Users Routes List
-Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/profile', [UserController::class, 'userprofile'])->name('profile');
-});
+// Route::middleware(['auth', 'user-access:user'])->group(function () {
+//     Route::get('/home', [HomeController::class, 'index'])->name('home');
+//     Route::get('/profile', [UserController::class, 'userprofile'])->name('profile');
+// });
  
 // //Admin Routes List
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin/home');
+// Route::middleware(['auth', 'user-access:admin'])->group(function () {
+//     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin/home');
  
 //     Route::get('/admin/profile', [AdminController::class, 'profilepage'])->name('admin/profile');
  
@@ -67,4 +65,4 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 //     Route::get('/admin/products/edit/{id}', [ProductController::class, 'edit'])->name('admin/products/edit');
 //     Route::put('/admin/products/edit/{id}', [ProductController::class, 'update'])->name('admin/products/update');
 //     Route::delete('/admin/products/destroy/{id}', [ProductController::class, 'destroy'])->name('admin/products/destroy');
-});
+// });

@@ -6,24 +6,20 @@ use Illuminate\Support\Facades\Schema;
  
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
-            $table->string('kavling');
+            $table->date('tanggal')->default(now())->nullable();              
+            $table->string('nama');             
+            $table->string('email');              
+            $table->bigInteger('no_hp')->nullable();   
             $table->string('nama_barang');
-            $table->integer('satuan');
+            $table->integer('jumlah');                        
+            $table->decimal('harga');
             $table->timestamps();
         });
     }
- 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('products');

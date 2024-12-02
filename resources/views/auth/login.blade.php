@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>ARCHILAND INTI PERKASA</title>
+  <title>Anathan's Login</title>
   <!-- Custom fonts for this template-->
   <link href="{{ asset('public_asset/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -27,7 +27,7 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">VILLA ANGGREK</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Anathan's</h1>
                   </div>
                   <form action="{{ route('login.action') }}" method="POST" class="user">
                     @csrf
